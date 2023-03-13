@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="TestabilityAnalyzer.commands.analyse"
+            name="Analyse">
+      </category>
+      <command
+            categoryId="TestabilityAnalyzer.commands.analyse"
+            name="Testbarkeit Analyse"
+            id="TestabilityAnalyzer.commands.analyseCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="ui.logic.RunAnalysisHandler"
+            commandId="TestabilityAnalyzer.commands.analyseCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+            <command
+                  commandId="TestabilityAnalyzer.commands.analyseCommand"
+                  id="TestabilityAnalyzer.commands.analyseCommand"
+                  mnemonic="S">
+        <enableWhen
+            checkEnabled="false">
+            <with
+                variable="activeMenuSelection">
+                <iterate
+                    ifEmpty="false">
+                    
+                    	<adapt type="org.eclipse.jdt.core.IJavaProject">
+                    	</adapt>
+                   
+                    <!--<adapt
+                        type="org.eclipse.core.resources.IFile">
+                        <test
+                            property="org.eclipse.jdt.core.isClassFile"
+                            value="true">
+                        </test>
+                    </adapt>-->
+<!--                       <adapt type="org.eclipse.core.resources.IResource">
+      <test property="org.eclipse.core.resources.contentTypeId" value="org.eclipse.jdt.core.javaSource" />
+   </adapt>-->
+                </iterate>
+            </with>
+        </enableWhen>
+            </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="TestabilityAnalyzer.analyse"
+            name="Testability">
+      </category>
+      <view
+            category="TestabilityAnalyzer.analyse"
+            class="ui.view.ResultView"
+            id="TestabilityAnalyzer.resultView"
+            name="Result View"
+            restorable="true">
+      </view>
+   </extension>
+</plugin>
